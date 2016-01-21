@@ -24,11 +24,11 @@ You should get in bin/$(Configuration)/ all the files including IoX.exe which is
 When you start it simply browse to http://localhost:8080, access the menu and select "manage modules".
 Load the hello world module and then access with your browser
 
-http://localhost:8080/hw/helo
-http://localhost:8080/hw/chat?msg=YourName
-..
-http://localhost:8080/hw/chat?msg=As+many+as+you+want
-http://localhost:8080/hw/bye
+    http://localhost:8080/hw/helo
+    http://localhost:8080/hw/chat?msg=YourName
+    ...
+    http://localhost:8080/hw/chat?msg=As+many+as+you+want
+    http://localhost:8080/hw/bye
 
 try to access helo URL while chatting, it will be ignored.
 Hope you like it and will to contribute!
