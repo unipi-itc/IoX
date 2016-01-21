@@ -15,9 +15,10 @@ We implemented a fingerprint-based door lock system with two nodes partecipating
 This is the very first version of the runtime. We will soon post instructions to build and run the hello world module example.
 There are several missing features that we are adding (authentication, filtering, utilities, etc.)
 
-Join us in trying to define an open source lightweight runtime for the future of IoT.
+Join us in defining an open source lightweight runtime for the future of IoT.
 
 # Build and run
+
 If you use Visual Studio simply build the main solution and the Hello World module example.
 You should get in bin/$(Configuration)/ all the files including IoX.exe which is the program.
 
