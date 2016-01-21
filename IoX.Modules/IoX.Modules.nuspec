@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>IoX.Modules</id>
+        <version>0.1.0</version>
+        <title>IoX.Modules</title>
+        <authors>Antonio Cisternino</authors>
+        <projectUrl>https://unipi-itc.github.io/IoX.Modules</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>
+          First release of the SDK for developing modules for the IoX (Internet of everything interconnecting) runtime 
+        </description>
+        <dependencies>
+            <group targetFramework=".NETFramework4.0">
+                <dependency id="Suave.EvReact" version="0.2.0" />
+                <dependency id="Suave" version="1.0.0" />
+                <dependency id="evReact" version="0.9.0" />
+                <dependency id="Newtonsoft.Json" version="8.0.2" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="bin\Release\IoX.Modules.dll" target="lib\net40" />
+        <file src="bin\Release\IoX.Modules.dll.config" target="lib\net40" />
+    </files>
+</package>
