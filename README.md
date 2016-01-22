@@ -20,6 +20,9 @@ Join us in defining an open source lightweight runtime for the future of IoT.
 ## Build and run
 
 If you use Visual Studio or Xamarin Studio or any other F# tooling, simply build the main solution and the Hello World module example.
+In case you are not using Visual Studio you have to manually copy the static folder in IoX.ModuleExamples.HelloWorld in the Modules 
+folder of the final output.
+
 You should get in bin/$(Configuration)/ all the files including IoX.exe which is the program.
 
 When you start it simply browse to http://localhost:8080, access the menu and select "manage modules".
