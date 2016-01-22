@@ -55,7 +55,7 @@
     <PostBuildEvent />
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>cmd /k (robocopy $(IoXTargetDir)Modules\hw /E) ^&amp; exit 0
+    <PostBuildEvent>cmd /k (robocopy $(ProjectDir)static $(IoXTargetDir)Modules\hw /E) ^&amp; exit 0
 copy /Y $(TargetPath) $(IoXTargetDir)Modules\hw
 </PostBuildEvent>
   </PropertyGroup>
@@ -75,7 +75,7 @@ copy /Y $(TargetPath) $(IoXTargetDir)Modules\hw
       <Private>True</Private>
     </Reference>
     <Reference Include="IoX.Modules">
-      <HintPath>..\packages\IoX.Modules.0.1.0\lib\net40\IoX.Modules.dll</HintPath>
+      <HintPath>packages\IoX.Modules.0.1.0\lib\net40\IoX.Modules.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
