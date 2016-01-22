@@ -36,6 +36,6 @@ Load the hello world module and then access with your browser
 
 Try to access helo URL while chatting, it will be ignored.
 
-We hope you like it and will to contribute!
+We hope you like it and will contribute!
 
 
