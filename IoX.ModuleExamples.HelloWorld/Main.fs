@@ -16,9 +16,9 @@ type HelloWorldModule() as this =
   do this.Browsable <- true
 
   override this.OnLoad() =
-    let hello = this.RegisterEvent("/hw/helo")
-    let chat = this.RegisterEvent("/hw/chat")
-    let bye = this.RegisterEvent("/hw/bye")
+    let hello = this.RegisterHttpEvent("/hw/helo")
+    let chat = this.RegisterHttpEvent("/hw/chat")
+    let bye = this.RegisterHttpEvent("/hw/bye")
 
     let net = 
       +(

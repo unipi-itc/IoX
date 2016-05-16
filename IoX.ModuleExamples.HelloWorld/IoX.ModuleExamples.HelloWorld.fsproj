@@ -75,8 +75,7 @@ copy /Y $(TargetPath) $(IoXTargetDir)Modules\hw
       <Private>True</Private>
     </Reference>
     <Reference Include="IoX.Modules">
-      <HintPath>..\packages\IoX.Modules.0.1.0\lib\net40\IoX.Modules.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\IoX.Modules\bin\Debug\IoX.Modules.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json">
