@@ -37,6 +37,14 @@ module Suave =
         | None -> return Some arg
       }
 
+  let regex (pattern:string) (arg:HttpContext) =
+    async {
+      if Regex.IsMatch(arg.request.url.AbsolutePath, pattern) then
+        return Some arg
+      else
+        return None
+    }
+
   type WebPartArray<'a>() =
     let webparts = ResizeArray<WebPart<'a>>()
     let mutable filter : WebPart<_> option = None

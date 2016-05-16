@@ -59,21 +59,20 @@ type Module(name:string, title:string, description:string) =
     with get() = verbs.Filter
     and set(v) = verbs.Filter <- v 
 
-  member this.RegisterEvent (pattern:string, ?def:WebPart, ?filter:WebPart) = 
+  member this.RegisterHttpEvent (pattern:string, ?filter:WebPart) = 
     let evt = HttpEvent()
-    let dwp = match def with Some v -> v | None -> Suave.ServerErrors.INTERNAL_ERROR ""
-    let wp = http_react(pattern, evt, dwp)
+    let wp = http_react(pattern, evt)
     let rwp = match filter with Some f -> f >=> wp | None -> wp
     verbs.Add(rwp)
     evt.Publish
 
-  member this.RegisterJsonEvent (pattern:string, ?def:WebPart, ?filter:WebPart) = 
-    let evt = JsonEvent()
-    let dwp = match def with Some v -> v | None -> Suave.ServerErrors.INTERNAL_ERROR ""
-    let wp = json_react(pattern, evt, dwp)
-    let rwp = match filter with Some f -> f >=> wp | None -> wp
-    verbs.Add(rwp)
-    evt.Publish
+  member this.RegisterEvent<'T>(pattern:string) =
+    let ewp, evt:WebPart*IEvent<'T> = createRemoteIEvent()
+    let wp = regex pattern >=> ewp
+    verbs.Add(wp)
+  
+  member this.CreateRemoteTrigger<'T>(uri) =
+    createRemoteTrigger<'T>(defaultSendJson uri)
 
   member this.SendJsonMessage (data:Json, dest:System.Uri) =
     async {
