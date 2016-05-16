@@ -55,8 +55,10 @@
     <PostBuildEvent />
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>cmd /k (robocopy $(IoXTargetDir)Modules\hw /E) ^&amp; exit 0
-copy /Y $(TargetPath) $(IoXTargetDir)Modules\hw
+    <PostBuildEvent>cmd /k (robocopy "$(ProjectDir)static" "$(IoXTargetDir)Modules\hw" /E) ^&amp; exit 0
+cmd /k (robocopy "$(ProjectDir)DataFolder" "$(IoXTargetDir)Modules\hw" /E) ^&amp; exit 0
+
+copy /Y "$(TargetPath)" "$(IoXTargetDir)Modules\hw"
 </PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
@@ -75,7 +77,8 @@ copy /Y $(TargetPath) $(IoXTargetDir)Modules\hw
       <Private>True</Private>
     </Reference>
     <Reference Include="IoX.Modules">
-      <HintPath>..\IoX.Modules\bin\Debug\IoX.Modules.dll</HintPath>
+      <HintPath>packages\IoX.Modules.0.1.0\lib\net40\IoX.Modules.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json">
@@ -87,7 +90,7 @@ copy /Y $(TargetPath) $(IoXTargetDir)Modules\hw
       <Private>True</Private>
     </Reference>
     <Reference Include="Suave.EvReact">
-      <HintPath>..\packages\Suave.EvReact.0.2.0\lib\net40\Suave.EvReact.dll</HintPath>
+      <HintPath>..\packages\Suave.EvReact.0.3.0\lib\net40\Suave.EvReact.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
