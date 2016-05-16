@@ -75,24 +75,24 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FsPickler">
-      <HintPath>..\packages\FsPickler.1.7.2\lib\net45\FsPickler.dll</HintPath>
+      <HintPath>..\packages\FsPickler.2.1.0\lib\net45\FsPickler.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RazorEngine">
-      <HintPath>..\packages\RazorEngine.3.7.7\lib\net45\RazorEngine.dll</HintPath>
+      <HintPath>..\packages\RazorEngine.3.8.2\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Suave">
-      <HintPath>..\packages\Suave.1.0.0\lib\net40\Suave.dll</HintPath>
+      <HintPath>..\packages\Suave.1.1.2\lib\net40\Suave.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Suave.EvReact">
-      <HintPath>..\packages\Suave.EvReact.0.2.0\lib\net40\Suave.EvReact.dll</HintPath>
+      <HintPath>..\packages\Suave.EvReact.0.4.1\lib\net40\Suave.EvReact.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

@@ -86,10 +86,8 @@ module ModulesManager =
             if m.Name = Module.ROOT || arg.request.url.LocalPath.StartsWith(sprintf "/%s/" m.Name) then
               let wp = m.Verbs.choose()
               let! res = wp arg
-
-              match res with
-              | Some x -> return Some x
-              | None ->
+              let attemptStatic () =
+                async {
                 if m.Browsable then
                   let sep = System.IO.Path.DirectorySeparatorChar
                   let! res = browse m.ModuleStaticFilesPath arg
@@ -98,6 +96,11 @@ module ModulesManager =
                   | None   -> return! intchoose (idx + 1) arg
                 else
                   return None
+                }
+
+              match res with
+              | Some x  -> return Some x
+              | None -> return! attemptStatic()
             else
               return! intchoose (idx + 1) arg
         }

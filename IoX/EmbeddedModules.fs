@@ -60,14 +60,14 @@ open IoX.Json
       | _ -> arg.Result <- NOT_FOUND "Module unavailable"
 
     override this.OnLoad() =
-      let root = this.RegisterEvent("^/$")
-      let modulesList = this.RegisterEvent("^/status/modules")
-      let availableModulesList = this.RegisterEvent("^/status/available-modules")
-      let loadModuleCommand = this.RegisterEvent("^/iox/load-module", filter=GET)
-      this.ActivateNet +(!!root |-> defaultIndex) |> ignore
-      this.ActivateNet +(
+      let root = this.RegisterHttpEvent("^/$")
+      let modulesList = this.RegisterHttpEvent("^/status/modules")
+      let availableModulesList = this.RegisterHttpEvent("^/status/available-modules")
+      let loadModuleCommand = this.RegisterHttpEvent("^/iox/load-module", filter=GET)
+      +(!!root |-> defaultIndex) |> this.ActivateNet |> ignore
+      +(
             (!!modulesList |-> loadedModulesListReq)
         |||
             (!!availableModulesList |-> availableModulesListReq)
-      ) |> ignore
-      this.ActivateNet +(!!loadModuleCommand |-> loadModuleReq) |> ignore
+      ) |> this.ActivateNet |> ignore
+      +(!!loadModuleCommand |-> loadModuleReq) |> this.ActivateNet |> ignore
