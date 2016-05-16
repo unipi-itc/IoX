@@ -59,21 +59,84 @@ type Module(name:string, title:string, description:string) =
     with get() = verbs.Filter
     and set(v) = verbs.Filter <- v 
 
+  member this.RegisterEvent<'T>(pattern:string) =
+    let ewp, evt:WebPart*IEvent<'T> = createRemoteIEvent()
+    let wp = regex pattern >=> ewp
+    verbs.Add(wp)
+    evt
+  
+  member this.CreateRemoteTrigger<'T>(uri) =
+    createRemoteTrigger<'T>(defaultSendJson uri)
+
+  member this.ActivateNet (net:Expr<HttpEventArgs>) =
+    Utils.start0 orchestrator net
+
+  member this.ActivateNet (net:Expr<JsonEventArgs>) =
+    Utils.start0 jsonorchestrator net
+
+  abstract OnLoad : unit -> unit
+
+  static member ROOT = "//"
+
+  static member HomePath
+    with get() =
+      let sep = System.IO.Path.DirectorySeparatorChar
+      sprintf @"%s%c%s" System.Environment.CurrentDirectory sep "Home"
+
+  static member ModulesPath
+    with get() =
+      let sep = System.IO.Path.DirectorySeparatorChar
+      sprintf @"%s%c%s" System.Environment.CurrentDirectory sep "Modules"
+
+[<AbstractClass>]
+type DriverModule(name:string, title:string, description:string) =
+  inherit Module(name, title, description)
+  let orchestrator : Orchestrator<HttpEventArgs> = Orchestrator.create()
+  let isMain = name = Module.ROOT
+  let mutable browsable = false
+  do
+    if name = null || 
+       (not(isMain) 
+        && (System.Text.RegularExpressions.Regex.IsMatch(name, "[^a-zA-Z\\-0-9]") 
+            || name = System.String.Empty)) then
+      failwith "Invalid module name"
+
+  member this.Name = name
+
+  member this.Title = title
+
+  member this.Description = description
+
+  member this.Browsable
+    with get() = browsable
+    and set(v) = browsable <- v
+
+  member this.ModuleStaticFilesPath
+    with get() =
+      if isMain then Module.HomePath else Module.ModulesPath
+
+  member this.ModuleStaticFilesFolder
+    with get() =
+      let sep = System.IO.Path.DirectorySeparatorChar
+      if isMain then
+        Module.HomePath
+      else
+        sprintf @"%s%c%s" Module.ModulesPath sep name
+
+  member this.Orchestrator with get() = orchestrator
+
   member this.RegisterHttpEvent (pattern:string, ?filter:WebPart) = 
     let evt = HttpEvent()
     let wp = http_react(pattern, evt)
     let rwp = match filter with Some f -> f >=> wp | None -> wp
-    verbs.Add(rwp)
+    this.Verbs.Add(rwp)
     evt.Publish
 
   member this.RegisterEvent<'T>(pattern:string) =
     let ewp, evt:WebPart*IEvent<'T> = createRemoteIEvent()
     let wp = regex pattern >=> ewp
-    verbs.Add(wp)
+    this.Verbs.Add(wp)
   
-  member this.CreateRemoteTrigger<'T>(uri) =
-    createRemoteTrigger<'T>(defaultSendJson uri)
-
   member this.SendJsonMessage (data:Json, dest:System.Uri) =
     async {
       use c = new WebClient()
@@ -102,28 +165,6 @@ type Module(name:string, title:string, description:string) =
       let! ret = c.AsyncDownloadString(u)
       return ret
     }
-
-
-  member this.ActivateNet (net:Expr<HttpEventArgs>) =
-    Utils.start0 orchestrator net
-
-  member this.ActivateNet (net:Expr<JsonEventArgs>) =
-    Utils.start0 jsonorchestrator net
-
-  abstract OnLoad : unit -> unit
-
-  static member ROOT = "//"
-
-  static member HomePath
-    with get() =
-      let sep = System.IO.Path.DirectorySeparatorChar
-      sprintf @"%s%c%s" System.Environment.CurrentDirectory sep "Home"
-
-  static member ModulesPath
-    with get() =
-      let sep = System.IO.Path.DirectorySeparatorChar
-      sprintf @"%s%c%s" System.Environment.CurrentDirectory sep "Modules"
-
 
 module Conf =
   type ModuleDescriptor = { Name:string; Title:string; Assembly:string; Description:string; Summary: string }

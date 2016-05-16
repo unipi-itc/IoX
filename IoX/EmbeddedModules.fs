@@ -13,7 +13,7 @@ open Newtonsoft.Json.Linq
 open IoX.Json
 
   type IoxModule() as this =
-    inherit Module(Module.ROOT, "IoX Runtime module", "Core processing module")
+    inherit DriverModule(Module.ROOT, "IoX Runtime module", "Core processing module")
 
     do this.Browsable <- true
 
