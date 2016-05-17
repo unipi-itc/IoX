@@ -14,26 +14,29 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Name>IoX.ModuleExamples.HelloWorld</Name>
     <IoXTargetDir>..\..\..\bin\$(Configuration)\</IoXTargetDir>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <Tailcalls>false</Tailcalls>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\Modules\hw\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\IoX.ModuleExamples.HelloWorld.XML</DocumentationFile>
+    <DocumentationFile>..\bin\Debug\Modules\hw\IoX.ModuleExamples.HelloWorld.XML</DocumentationFile>
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Users\ciste\Documents\GitHub\iox\bin\Debug\IoX.exe</StartProgram>
+    <StartWorkingDirectory>C:\Users\ciste\Documents\GitHub\iox\bin\Debug\</StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <Tailcalls>true</Tailcalls>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\Release\Modules\hw</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\IoX.ModuleExamples.HelloWorld.XML</DocumentationFile>
+    <DocumentationFile>..\bin\Release\Modules\hw\IoX.ModuleExamples.HelloWorld.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
@@ -55,43 +58,46 @@
     <PostBuildEvent />
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>cmd /k (robocopy "$(ProjectDir)static" "$(IoXTargetDir)Modules\hw" /E) ^&amp; exit 0
-cmd /k (robocopy "$(ProjectDir)DataFolder" "$(IoXTargetDir)Modules\hw" /E) ^&amp; exit 0
-
-copy /Y "$(TargetPath)" "$(IoXTargetDir)Modules\hw"
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Main.fs" />
     <Content Include="packages.config" />
     <Content Include="app.config" />
+    <None Include="static\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="iox.conf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="evReact">
       <HintPath>..\packages\evReact.0.9.1\lib\net40\evReact.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="FSharp.Core">
       <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="IoX.Modules">
-      <HintPath>packages\IoX.Modules.0.1.0\lib\net40\IoX.Modules.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\IoX.Modules\bin\Debug\IoX.Modules.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Suave">
-      <HintPath>..\packages\Suave.1.0.0\lib\net40\Suave.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>packages\Suave.1.1.2\lib\net40\Suave.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Suave.EvReact">
-      <HintPath>..\packages\Suave.EvReact.0.3.0\lib\net40\Suave.EvReact.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>packages\Suave.EvReact.0.4.1\lib\net40\Suave.EvReact.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
