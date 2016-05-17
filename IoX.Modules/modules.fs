@@ -13,8 +13,6 @@ open IoX.Json
 type Module(name:string, title:string, description:string) =
   let configurationName = "module.conf"
   let verbs = WebPartArray()
-  let orchestrator : Orchestrator<HttpEventArgs> = Orchestrator.create()
-  let jsonorchestrator : Orchestrator<JsonEventArgs> = Orchestrator.create()
   let isMain = name = Module.ROOT
   let mutable browsable = false
   do
@@ -36,7 +34,11 @@ type Module(name:string, title:string, description:string) =
 
   member this.ModuleStaticFilesPath
     with get() =
-      if isMain then Module.HomePath else Module.ModulesPath
+      let sep = System.IO.Path.DirectorySeparatorChar
+      if isMain then
+        Module.HomePath
+      else
+        (sprintf "%s%cstatic" Module.ModulesPath sep)
 
   member this.ModuleStaticFilesFolder
     with get() =
@@ -50,8 +52,6 @@ type Module(name:string, title:string, description:string) =
     with get() = 
       let sep = System.IO.Path.DirectorySeparatorChar
       sprintf "%s%c%s" this.ModuleStaticFilesFolder sep configurationName
-
-  member this.Orchestrator with get() = orchestrator
 
   member this.Verbs with get() = verbs
 
@@ -68,11 +68,9 @@ type Module(name:string, title:string, description:string) =
   member this.CreateRemoteTrigger<'T>(uri) =
     createRemoteTrigger<'T>(defaultSendJson uri)
 
-  member this.ActivateNet (net:Expr<HttpEventArgs>) =
+  member this.ActivateNet<'T> (net:Expr<'T>) =
+    let orchestrator : Orchestrator<'T> = Orchestrator.create()
     Utils.start0 orchestrator net
-
-  member this.ActivateNet (net:Expr<JsonEventArgs>) =
-    Utils.start0 jsonorchestrator net
 
   abstract OnLoad : unit -> unit
 
@@ -91,9 +89,7 @@ type Module(name:string, title:string, description:string) =
 [<AbstractClass>]
 type DriverModule(name:string, title:string, description:string) =
   inherit Module(name, title, description)
-  let orchestrator : Orchestrator<HttpEventArgs> = Orchestrator.create()
   let isMain = name = Module.ROOT
-  let mutable browsable = false
   do
     if name = null || 
        (not(isMain) 
@@ -101,41 +97,12 @@ type DriverModule(name:string, title:string, description:string) =
             || name = System.String.Empty)) then
       failwith "Invalid module name"
 
-  member this.Name = name
-
-  member this.Title = title
-
-  member this.Description = description
-
-  member this.Browsable
-    with get() = browsable
-    and set(v) = browsable <- v
-
-  member this.ModuleStaticFilesPath
-    with get() =
-      if isMain then Module.HomePath else Module.ModulesPath
-
-  member this.ModuleStaticFilesFolder
-    with get() =
-      let sep = System.IO.Path.DirectorySeparatorChar
-      if isMain then
-        Module.HomePath
-      else
-        sprintf @"%s%c%s" Module.ModulesPath sep name
-
-  member this.Orchestrator with get() = orchestrator
-
   member this.RegisterHttpEvent (pattern:string, ?filter:WebPart) = 
     let evt = HttpEvent()
     let wp = http_react(pattern, evt)
     let rwp = match filter with Some f -> f >=> wp | None -> wp
     this.Verbs.Add(rwp)
     evt.Publish
-
-  member this.RegisterEvent<'T>(pattern:string) =
-    let ewp, evt:WebPart*IEvent<'T> = createRemoteIEvent()
-    let wp = regex pattern >=> ewp
-    this.Verbs.Add(wp)
   
   member this.SendJsonMessage (data:Json, dest:System.Uri) =
     async {
