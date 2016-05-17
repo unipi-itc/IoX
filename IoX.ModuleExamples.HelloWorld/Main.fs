@@ -11,7 +11,7 @@ open Newtonsoft.Json.Linq
 open IoX.Json
 
 type HelloWorldModule() as this =
-  inherit Module("hw", "Hello world", "Example module")
+  inherit DriverModule("hw", "Hello world", "Example module")
 
   do this.Browsable <- true
 
