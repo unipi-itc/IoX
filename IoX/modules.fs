@@ -64,7 +64,7 @@ module ModulesManager =
     if (not(File.Exists(assemblyfile))) then
       failwith (sprintf "Error loading module %s: missing assembly file '%s'" name assemblyfile)
     let assembly = System.Reflection.Assembly.LoadFile(assemblyfile)
-    match (assembly.GetTypes() |> Array.tryFind(fun t -> t.BaseType = typeof<Module>)) with
+    match (assembly.GetTypes() |> Array.tryFind(fun t -> t.IsSubclassOf(typeof<Module>))) with
     | Some t ->
       let m = assembly.CreateInstance(t.FullName) :?> Module
       registerModule(m)
@@ -83,24 +83,36 @@ module ModulesManager =
             return! Suave.RequestErrors.NOT_FOUND (sprintf "Requested URL %s not found." arg.request.url.PathAndQuery) arg
           else
             let m = loadedModules.[idx]
-            if m.Name = Module.ROOT || arg.request.url.LocalPath.StartsWith(sprintf "/%s/" m.Name) then
-              let wp = m.Verbs.choose()
-              let! res = wp arg
-              let attemptStatic () =
-                async {
+            let attemptStatic () =
+              async {
                 if m.Browsable then
                   let sep = System.IO.Path.DirectorySeparatorChar
                   let! res = browse m.ModuleStaticFilesPath arg
                   match res with
                   | Some x -> return Some x
-                  | None   -> return! intchoose (idx + 1) arg
+                  | None   ->
+                  return None
                 else
                   return None
-                }
+              }
+
+            if m.Name = Module.ROOT || arg.request.url.LocalPath.StartsWith(sprintf "/%s/" m.Name) then
+              let wp = m.Verbs.choose()
+              let! res = wp arg
 
               match res with
               | Some x  -> return Some x
-              | None -> return! attemptStatic()
+              | None ->
+                let! statres = attemptStatic()
+                match statres with
+                | Some x -> return Some x
+                | None -> 
+                  if idx = 0 then
+                    return! intchoose (idx + 1) arg
+                  else
+                    let! f = RequestErrors.FORBIDDEN "" arg
+                    return f
+
             else
               return! intchoose (idx + 1) arg
         }
