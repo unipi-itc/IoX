@@ -11,25 +11,24 @@ open Newtonsoft.Json.Linq
 open IoX.Json
 
 type HelloWorldModule() as this =
-  inherit DriverModule("hw", "Hello world", "Example module")
+  inherit Module("hw", "Hello world", "Example module")
 
   do this.Browsable <- true
 
   override this.OnLoad() =
-    let hello = this.RegisterHttpEvent("/hw/helo")
-    let chat = this.RegisterHttpEvent("/hw/chat")
-    let bye = this.RegisterHttpEvent("/hw/bye")
+    let hello = this.RegisterEvent("/hw/helo")
+    let chat = this.RegisterEvent("/hw/chat")
+    let bye = this.RegisterEvent("/hw/bye")
+
+    let send uri msg = this.CreateRemoteTrigger uri msg
 
     let net = 
       +(
-        (!!hello |-> fun arg -> arg.Result <- OK "Hello dear")
+        (!!hello |-> fun (uri, _) -> send uri "Hello dear")
         -
-        +(!!chat |-> fun arg -> 
-          let msg = match arg.Context.request.query.[0] with "msg", Some m -> m | _ -> ""
-          arg.Result <- OK (sprintf "I disagree on %s" msg)
-        ) / [|bye|]
+        +(!!chat |-> fun (uri, msg) -> send uri (sprintf "I disagree on %s" msg) ) / [|bye|]
         -
-        (!!bye |-> fun arg -> arg.Result <- OK "Bye bye!")
+        (!!bye |-> fun (uri, _) -> send uri "Bye bye!")
         )
       
     this.ActivateNet(net) |> ignore
