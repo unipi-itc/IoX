@@ -59,8 +59,14 @@ type Module(name:string, title:string, description:string) =
     with get() = verbs.Filter
     and set(v) = verbs.Filter <- v 
 
+  member this.RegisterReplyEvent<'T>(pattern:string, ?msTimeout:int) =
+    let ewp, evt:WebPart*IEvent<MsgRequestEventArgs<'T>> = msgResponse(msTimeout)
+    let wp = regex pattern >=> ewp
+    verbs.Add(wp)
+    evt
+
   member this.RegisterEvent<'T>(pattern:string) =
-    let ewp, evt:WebPart*IEvent<'T> = createRemoteIEvent()
+    let ewp, evt:WebPart*IEvent<MsgContext*'T> = msgReact()
     let wp = regex pattern >=> ewp
     verbs.Add(wp)
     evt
@@ -97,12 +103,12 @@ type DriverModule(name:string, title:string, description:string) =
             || name = System.String.Empty)) then
       failwith "Invalid module name"
 
-  member this.RegisterHttpEvent (pattern:string, ?filter:WebPart) = 
-    let evt = HttpEvent()
-    let wp = http_react(pattern, evt)
-    let rwp = match filter with Some f -> f >=> wp | None -> wp
+  member this.RegisterHttpEvent (pattern:string, ?filter:WebPart, ?msTimeout:int) = 
+    let wp, evt = httpResponse(msTimeout)
+    let rxwp = regex pattern >=> wp
+    let rwp = match filter with Some f -> f >=> rxwp | None -> rxwp
     this.Verbs.Add(rwp)
-    evt.Publish
+    evt
   
   member this.SendJsonMessage (data:Json, dest:System.Uri) =
     async {
