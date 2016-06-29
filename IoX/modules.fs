@@ -96,7 +96,7 @@ module ModulesManager =
                   return None
               }
 
-            if m.Name = Module.ROOT || arg.request.url.LocalPath.StartsWith(sprintf "/%s/" m.Name) then
+            if m.Name = Module.ROOT then
               let wp = m.Verbs.choose()
               let! res = wp arg
 
@@ -106,13 +106,10 @@ module ModulesManager =
                 let! statres = attemptStatic()
                 match statres with
                 | Some x -> return Some x
-                | None -> 
-                  if idx = 0 then
-                    return! intchoose (idx + 1) arg
-                  else
-                    let! f = RequestErrors.FORBIDDEN "" arg
-                    return f
-
+                | None -> return! intchoose (idx + 1) arg
+            elif arg.request.url.LocalPath.StartsWith(sprintf "/%s/" m.Name) then
+              let query = arg.request.url.LocalPath.Substring(m.Name.Length + 2)
+              return! m.Handle query arg
             else
               return! intchoose (idx + 1) arg
         }

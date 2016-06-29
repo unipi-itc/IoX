@@ -14,23 +14,17 @@ type Module(name:string, title:string, description:string) =
   let configurationName = "module.conf"
   let verbs = WebPartArray()
   let isMain = name = Module.ROOT
-  let mutable browsable = false
   do
-    if name = null || 
-       (not(isMain) 
-        && (System.Text.RegularExpressions.Regex.IsMatch(name, "[^a-zA-Z\\-0-9]") 
-            || name = System.String.Empty)) then
+    if name = null ||
+       name = "" ||
+       (not(isMain) && System.Text.RegularExpressions.Regex.IsMatch(name, "[^_a-zA-Z\\-0-9]")) then
       failwith "Invalid module name"
 
   member this.Name = name
-
   member this.Title = title
-
   member this.Description = description
 
-  member this.Browsable
-    with get() = browsable
-    and set(v) = browsable <- v
+  member val Browsable = false with get, set
 
   member this.ModuleStaticFilesPath
     with get() =
@@ -38,22 +32,26 @@ type Module(name:string, title:string, description:string) =
       if isMain then
         Module.HomePath
       else
-        (sprintf "%s%cstatic" Module.ModulesPath sep)
+        sprintf "%s%cstatic" this.ModuleFolder sep
 
-  member this.ModuleStaticFilesFolder
+  member this.ModuleFolder
     with get() =
       let sep = System.IO.Path.DirectorySeparatorChar
       if isMain then
         Module.HomePath
       else
-        sprintf @"%s%c%s" Module.ModulesPath sep name
+        sprintf "%s%c%s" Module.ModulesPath sep name
 
-  member this.DefaultConfigurationFileFullName
-    with get() = 
-      let sep = System.IO.Path.DirectorySeparatorChar
-      sprintf "%s%c%s" this.ModuleStaticFilesFolder sep configurationName
+  member this.DefaultConfigurationFileFullName =
+    let sep = System.IO.Path.DirectorySeparatorChar
+    sprintf "%s%c%s" this.ModuleFolder sep configurationName
 
-  member this.Verbs with get() = verbs
+  member this.Verbs = verbs
+
+  member this.Handle query =
+    let r = RequestErrors.FORBIDDEN "Query not supported"
+    let r = if this.Browsable then browseFile this.ModuleStaticFilesPath query <|> r else r
+    this.Verbs.choose() <|> r
 
   member this.ModuleFilter
     with get() = verbs.Filter
@@ -82,15 +80,13 @@ type Module(name:string, title:string, description:string) =
 
   static member ROOT = "//"
 
-  static member HomePath
-    with get() =
-      let sep = System.IO.Path.DirectorySeparatorChar
-      sprintf @"%s%c%s" System.Environment.CurrentDirectory sep "Home"
+  static member HomePath =
+    let sep = System.IO.Path.DirectorySeparatorChar
+    sprintf @"%s%c%s" System.Environment.CurrentDirectory sep "Home"
 
-  static member ModulesPath
-    with get() =
-      let sep = System.IO.Path.DirectorySeparatorChar
-      sprintf @"%s%c%s" System.Environment.CurrentDirectory sep "Modules"
+  static member ModulesPath =
+    let sep = System.IO.Path.DirectorySeparatorChar
+    sprintf @"%s%c%s" System.Environment.CurrentDirectory sep "Modules"
 
 [<AbstractClass>]
 type DriverModule(name:string, title:string, description:string) =
