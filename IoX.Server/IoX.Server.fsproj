@@ -5,13 +5,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>fbacbade-213a-4892-b142-026a041992ed</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>IoX.ModuleExamples.HelloWorld</RootNamespace>
-    <AssemblyName>IoX.ModuleExamples.HelloWorld</AssemblyName>
+    <ProjectGuid>51864394-69b0-48e1-905c-de36ca3bdb90</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>IoX.Server</RootNamespace>
+    <AssemblyName>IoX.Server</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
-    <Name>IoX.ModuleExamples.HelloWorld</Name>
+    <Name>IoX.Server</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +21,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\IoX.ModuleExamples.HelloWorld.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\IoX.Server.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,7 +30,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\IoX.ModuleExamples.HelloWorld.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\IoX.Server.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -42,13 +42,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IoX.ModuleExamples.HelloWorld.fs" />
-    <None Include="module.iox.conf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="static\**\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Compile Include="IoX.Server.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

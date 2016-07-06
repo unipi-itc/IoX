@@ -5,13 +5,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>fbacbade-213a-4892-b142-026a041992ed</ProjectGuid>
+    <ProjectGuid>20e6cd0d-9b20-4328-ad39-64c8692eac3e</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>IoX.ModuleExamples.HelloWorld</RootNamespace>
-    <AssemblyName>IoX.ModuleExamples.HelloWorld</AssemblyName>
+    <RootNamespace>IoX.Module.SubTree</RootNamespace>
+    <AssemblyName>IoX.Module.SubTree</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
-    <Name>IoX.ModuleExamples.HelloWorld</Name>
+    <Name>IoX.Module.SubTree</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +21,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\IoX.ModuleExamples.HelloWorld.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\IoX.Module.SubTree.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,7 +30,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\IoX.ModuleExamples.HelloWorld.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\IoX.Module.SubTree.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -42,8 +42,11 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IoX.ModuleExamples.HelloWorld.fs" />
+    <Compile Include="IoX.Module.SubTree.fs" />
     <None Include="module.iox.conf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="modules\README">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="static\**\*">
@@ -69,6 +72,10 @@
   <ItemGroup>
     <Reference Include="evReact">
       <HintPath>packages\evReact.0.9.1\lib\net40\evReact.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">

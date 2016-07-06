@@ -1,0 +1,3 @@
+Put any module you want to load in this folder.
+The SubTree module will detect the available modules at load time and when it
+receives a `refresh-available-modules` request.
