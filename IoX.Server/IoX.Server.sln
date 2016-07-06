@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "IoX", "IoX\IoX.fsproj", "{51864394-69B0-48E1-905C-DE36CA3BDB90}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "IoX.Modules", "..\IoX.Modules\IoX.Modules.fsproj", "{FA811B1F-2785-44A1-94F2-3701DFA83187}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "IoX.Modules", "IoX.Modules\IoX.Modules.fsproj", "{FA811B1F-2785-44A1-94F2-3701DFA83187}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "IoX.Server", "IoX.Server.fsproj", "{51864394-69B0-48E1-905C-DE36CA3BDB90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{51864394-69B0-48E1-905C-DE36CA3BDB90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51864394-69B0-48E1-905C-DE36CA3BDB90}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51864394-69B0-48E1-905C-DE36CA3BDB90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51864394-69B0-48E1-905C-DE36CA3BDB90}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA811B1F-2785-44A1-94F2-3701DFA83187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA811B1F-2785-44A1-94F2-3701DFA83187}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA811B1F-2785-44A1-94F2-3701DFA83187}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA811B1F-2785-44A1-94F2-3701DFA83187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51864394-69B0-48E1-905C-DE36CA3BDB90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51864394-69B0-48E1-905C-DE36CA3BDB90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51864394-69B0-48E1-905C-DE36CA3BDB90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51864394-69B0-48E1-905C-DE36CA3BDB90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
