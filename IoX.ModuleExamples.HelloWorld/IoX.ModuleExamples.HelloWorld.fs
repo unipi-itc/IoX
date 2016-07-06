@@ -2,33 +2,32 @@
 
 open IoX.Modules
 open EvReact.Expr
-open Suave
-open Suave.Files
-open Suave.Filters
-open Suave.Successful
 open Suave.EvReact
-open Newtonsoft.Json.Linq
-open IoX.Json
+open Suave.Successful
 
-type HelloWorldModule() as this =
-  inherit Module("hw", "Hello world", "Example module")
+[<Module(
+  Name = "Hello world",
+  Description = "Example IoX module."
+)>]
+type HelloWorldModule(data: IModuleData<unit>) as this =
+  inherit Module()
 
-  do this.Browsable <- true
+  do
+    this.Root <- Suave.Redirection.moved_permanently "index.html"
+    this.Browsable <- true
 
-  override this.OnLoad() =
-    let hello = this.RegisterEvent("/hw/helo")
-    let chat = this.RegisterEvent("/hw/chat")
-    let bye = this.RegisterEvent("/hw/bye")
+    let hello = this.RegisterReplyEvent("helo")
+    let chat = this.RegisterReplyEvent("chat")
+    let bye = this.RegisterReplyEvent("bye")
 
-    let send uri msg = this.CreateRemoteTrigger uri msg
+    +(
+      (!!hello |-> fun arg -> arg.Result <- OK "Hello dear")
+      -
+      +(!!chat |-> fun arg -> arg.Result <- OK (sprintf "I disagree on %s" arg.Message) ) / [| bye |]
+      -
+      (!!bye |-> fun arg -> arg.Result <- OK "Bye bye!")
+    )
+    |> this.ActivateNet
+    |> ignore
 
-    let net = 
-      +(
-        (!!hello |-> fun (uri, _) -> send uri "Hello dear")
-        -
-        +(!!chat |-> fun (uri, msg) -> send uri (sprintf "I disagree on %s" msg) ) / [|bye|]
-        -
-        (!!bye |-> fun (uri, _) -> send uri "Bye bye!")
-        )
-      
-    this.ActivateNet(net) |> ignore
+  static member DefaultConfig = ()
