@@ -1,0 +1,7 @@
+configuration:
+ - Debug
+ - Release
+before_build:
+ ps: nuget restore
+build:
+ project: IoX.sln
