@@ -10,7 +10,7 @@
     <RootNamespace>IoX.Modules</RootNamespace>
     <AssemblyName>IoX.Modules</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
+    <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <Name>IoX.Modules</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -64,19 +64,19 @@
   <Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
   <ItemGroup>
     <Reference Include="evReact">
-      <HintPath>packages\evReact.0.9.1\lib\net40\evReact.dll</HintPath>
+      <HintPath>..\packages\evReact.0.9.1\lib\net40\evReact.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Suave">
-      <HintPath>packages\Suave.1.1.3\lib\net40\Suave.dll</HintPath>
+      <HintPath>..\packages\Suave.1.1.3\lib\net40\Suave.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Suave.EvReact">
-      <HintPath>packages\Suave.EvReact.0.5.0\lib\net40\Suave.EvReact.dll</HintPath>
+      <HintPath>..\packages\Suave.EvReact.0.5.1\lib\net45\Suave.EvReact.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
