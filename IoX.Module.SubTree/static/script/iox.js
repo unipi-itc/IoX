@@ -11,7 +11,7 @@ var iox = (function () {
     });
   }
   function EachList(url, loaded, f, after) {
-    $.getJSON(url, function (data) {
+    PostJSON(url, null, function (data) {
       loaded();
       $.each(data, function (k, m) {
         f(m);
