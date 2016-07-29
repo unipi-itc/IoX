@@ -21,16 +21,14 @@ type RootModuleData<'C>(path, url, defaultCfg) =
 
 type IoXConfiguration = {
   RootPath: string
-  SuaveConfig: SuaveConfig
+  BindingAddress: string
+  BindingPort: int
 }
 
 let defaultIoXConfiguration = {
   RootPath = "root"
-  SuaveConfig =
-    {
-      defaultConfig with
-        bindings = [ HttpBinding.mk HTTP System.Net.IPAddress.Any 8080us ]
-    }
+  BindingAddress = "0.0.0.0"
+  BindingPort = 8080
 }
 
 let loadRootModule path url =
@@ -65,11 +63,14 @@ let loadRootModule path url =
 
 let run path =
   let conf = Utils.ConfigurationFile("iox.conf", defaultIoXConfiguration)
-  conf.Load()
+  let config = {
+    defaultConfig with
+      bindings = [ HttpBinding.mkSimple HTTP conf.Data.BindingAddress conf.Data.BindingPort ]
+  }
   let rootPath = System.IO.Path.Combine(path, conf.Data.RootPath)
-  let rootUri = SuaveConfig.firstBindingUri conf.Data.SuaveConfig "" ""
+  let rootUri = SuaveConfig.firstBindingUri config "" ""
   let wp = loadRootModule rootPath rootUri
-  startWebServer conf.Data.SuaveConfig wp
+  startWebServer config wp
 
 [<EntryPoint>]
 let main argv =
