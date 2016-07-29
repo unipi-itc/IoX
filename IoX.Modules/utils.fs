@@ -12,14 +12,15 @@ module Utils =
 
   type ConfigurationFile<'T>(fn: string, def: 'T) =
     let mutable conf = def
+    let load () =
+      try conf <- readConfigurationFile(fn)
+      with :? System.IO.FileNotFoundException -> ()
+
+    do load()
 
     member this.Data
       with get() = conf
       and set(v) = conf <- v
 
-    member this.Load() =
-      try conf <- readConfigurationFile(fn)
-      with :? System.IO.FileNotFoundException -> ()
-
-    member this.Save() =
-      writeConfigurationFile fn conf
+    member this.Load() = load()
+    member this.Save() = writeConfigurationFile fn conf
