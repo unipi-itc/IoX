@@ -43,6 +43,10 @@ type Module() =
   member this.Root with set wp = this.Register("", wp)
   member val Browsable = false with get, set
 
+  member this.BuildJsonReply x : WebPart =
+    let json = Newtonsoft.Json.JsonConvert.SerializeObject(x)
+    Writers.setMimeType "application/json" >=> Successful.OK json
+
   member this.SendJsonMessage (dest: Uri) x =
     let json = Newtonsoft.Json.JsonConvert.SerializeObject(x)
     let data = System.Text.Encoding.UTF8.GetBytes(json)
