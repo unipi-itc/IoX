@@ -171,8 +171,7 @@ type SubTreeModule(data: IModuleData<IoxModuleCfg>) as this =
 
     arg.Result <-
       lock modules loadedModulesInfo
-      |> Newtonsoft.Json.JsonConvert.SerializeObject
-      |> Successful.OK
+      |> this.BuildJsonReply
 
   let getAvailableModules (arg:MsgRequestEventArgs<_>) =
     let availableModulesInfo _ =
@@ -182,17 +181,14 @@ type SubTreeModule(data: IModuleData<IoxModuleCfg>) as this =
 
     arg.Result <-
       lock modules availableModulesInfo
-      |> Newtonsoft.Json.JsonConvert.SerializeObject
-      |> Successful.OK
+      |> this.BuildJsonReply
 
   let loadModule (arg:MsgRequestEventArgs<string>) =
     let tryLoadModule _ =
       try
         let loader = modules.[arg.Message]
         loader.Load()
-        loader.Info
-        |> Newtonsoft.Json.JsonConvert.SerializeObject
-        |> Successful.OK
+        loader.Info |> this.BuildJsonReply
       with e ->
         modules.Remove(arg.Message) |> ignore
         e.ToString() |> ServerErrors.INTERNAL_ERROR
