@@ -39,7 +39,7 @@ let loadRootModule path url =
       printfn "Could not load root module configuration from %A." descPath
       raise e
 
-  let assembly = Reflection.Assembly.LoadFile(Path.Combine(path, desc.AssemblyPath))
+  let assembly = Reflection.Assembly.LoadFrom(Path.Combine(path, desc.AssemblyPath))
   let mType =
     match assembly.GetType(desc.ModuleTypeName) with
     | null -> failwith (sprintf "Error loading %s from %s: type not found" desc.ModuleTypeName desc.AssemblyPath)

@@ -45,7 +45,7 @@ type ModuleWrapper(id, path, url: Uri) =
     let desc = readConfigurationFile(Path.Combine(path, "module.iox.conf"))
     let path = Path.Combine(path, desc.AssemblyPath)
     let typeName = desc.ModuleTypeName
-    let assembly = Assembly.LoadFile(path)
+    let assembly = Assembly.LoadFrom(path)
     match assembly.GetType(typeName) with
     | null -> failwith (sprintf "Error loading %s from %s: type not found" typeName assembly.FullName)
     | m when m.IsSubclassOf(typeof<IoX.Modules.Module>) -> m
