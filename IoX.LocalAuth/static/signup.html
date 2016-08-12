@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Hello World Module</title>
+	<head>
 	<meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	 
@@ -13,10 +12,11 @@
 	<script type="text/javascript" src="../../script/jquery-2.2.4.min.js"></script>
 	<script type="text/javascript" src="../../script/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../../script/iox.js"></script>
+	<script type="text/javascript" src="../../script/signup.js"></script>
 </head>
 
 <body>
-
+	
 	<div class="container">
 
 		<!-- Static navbar -->
@@ -53,16 +53,62 @@
 			
         </div><!--/.container-fluid -->
       </nav>
-
+		
 		<!-- Main component for a primary marketing message or call to action -->		
 		<div id="main-container" class="container-fluid"> <!--text-center -->
 			
 			<div id="module-name">
-				<h4>HELLO WORLD</h4>
+				<h4>Auth</h4>
 			</div>
 		
 			<div id="module-content">
-				Example module for the IoX runtime engine.
+				<div class="login-container">
+					
+					<form id="signupForm" class="form-login" method="post" accept-charset="UTF-8" >
+						<div class="form-group">
+							<div>
+								<input type="text" placeholder="Name" id="signupName" name="signupName" value="" class="form-control input-md" oninput="rescheduleValidate(500)" onblur="validate()">	
+							</div>
+							<div class="help-login help-signupName"></div>
+						</div>
+						<div class="form-group">
+							<div>
+								<input type="text" placeholder="Surname" id="signupSurname" name="signupSurname" value="" class="form-control input-md" oninput="rescheduleValidate(500)" onblur="validate()">
+							</div>
+							<div class="help-login help-signupSurname"></div>
+						</div>
+						<div class="form-group">
+						  <div>
+						  <input type="text" placeholder="Email" id="signupEmail" name="signupEmail" value="" class="form-control input-md" oninput="rescheduleValidate(500)" onblur="validate()">
+						  </div>
+						  <div class="help-login help-signupEmail"></div>
+						</div>
+						<div class="form-group">
+							<div>
+								<input type="text" placeholder="Username" id="signupUsername" name="signupUsername" value="" class="form-control input-md" oninput="rescheduleValidate(500)" onblur="validate()">
+							</div>
+							<div class="help-login help-signupUsername"></div>
+						</div>
+						<div class="form-group">
+							<div>
+								<input type="password" placeholder="Password" id="signupPassword" name="signupPassword" value="" class="form-control input-md" oninput="rescheduleValidate(500)" onblur="validate()">
+							</div>
+							<div class="help-login help-signupPassword"></div>
+						</div>
+						<div class="form-group">
+							<div>
+								<input type="password" placeholder="Repeat Password" id="signupRPassword" name="signupRPassword" value="" class="form-control input-md" oninput="rescheduleValidate(500)" onblur="validate()">
+							</div>
+							<div class="help-login help-signupRPassword"></div>
+						</div>
+						<div class="form-group">
+							<div>
+							<a role="button" id="sign-up" name="signupBtn" class="btn btn-primary btn-block" onclick="signup()">Sign Up</a> 
+							</div>
+							<div class="help-login help-signupResult"></div>
+						</div>
+					</form> 
+				</div>
 			</div>
 			
 			<div class="jumbotron">
@@ -71,6 +117,6 @@
 		
 		</div> <!-- main-container -->
 	</div> <!-- /container -->
-	
+
 </body>
 </html>

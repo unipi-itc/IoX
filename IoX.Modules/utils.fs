@@ -23,3 +23,26 @@ module Utils =
 
     member this.Save() =
       writeConfigurationFile fn conf
+
+
+module Json =
+  open Suave.Operators
+  open Newtonsoft.Json.Linq
+
+  let parseJson (s:string) =
+    JToken.Parse(s)
+
+  type Json =
+  | JObj of Json seq
+  | JProp of string * Json
+  | JArr of Json seq
+  | JVal of obj
+
+  let (!?) (o : obj) = JVal o
+
+  let rec toJson = function
+  | JVal v -> new JValue(v) :> JToken
+  | JProp(name, (JProp(_) as v)) -> new JProperty(name, new JObject(toJson v)) :> JToken
+  | JProp(name, v) -> new JProperty(name, toJson v) :> JToken
+  | JArr items -> new JArray(items |> Seq.map toJson) :> JToken
+  | JObj props -> new JObject(props |> Seq.map toJson) :> JToken

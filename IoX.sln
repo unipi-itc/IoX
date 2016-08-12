@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "IoX.Module.SubTree", "IoX.Module.SubTree\IoX.Module.SubTree.fsproj", "{20E6CD0D-9B20-4328-AD39-64C8692EAC3E}"
 EndProject
@@ -10,6 +10,12 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "IoX.Modules", "IoX.Modules\IoX.Modules.fsproj", "{FA811B1F-2785-44A1-94F2-3701DFA83187}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "IoX.Server", "IoX.Server\IoX.Server.fsproj", "{51864394-69B0-48E1-905C-DE36CA3BDB90}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "IoX.OAuth", "IoX.OAuth\IoX.OAuth.fsproj", "{132F2CDB-7C33-49E0-9C35-BF2CC1FC6433}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Suave.OAuth", "..\..\Suave.OAuth.0.7.5\Suave.OAuth\core\Suave.OAuth.fsproj", "{6584D666-D04D-4DFC-8C54-AA404AB81753}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "IoX.LocalAuth", "IoX.LocalAuth\IoX.LocalAuth.fsproj", "{C3EA72B2-AE52-453B-8303-FE5855928570}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{51864394-69B0-48E1-905C-DE36CA3BDB90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51864394-69B0-48E1-905C-DE36CA3BDB90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51864394-69B0-48E1-905C-DE36CA3BDB90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{132F2CDB-7C33-49E0-9C35-BF2CC1FC6433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{132F2CDB-7C33-49E0-9C35-BF2CC1FC6433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{132F2CDB-7C33-49E0-9C35-BF2CC1FC6433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{132F2CDB-7C33-49E0-9C35-BF2CC1FC6433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6584D666-D04D-4DFC-8C54-AA404AB81753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6584D666-D04D-4DFC-8C54-AA404AB81753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6584D666-D04D-4DFC-8C54-AA404AB81753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6584D666-D04D-4DFC-8C54-AA404AB81753}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3EA72B2-AE52-453B-8303-FE5855928570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3EA72B2-AE52-453B-8303-FE5855928570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3EA72B2-AE52-453B-8303-FE5855928570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3EA72B2-AE52-453B-8303-FE5855928570}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Hello World Module</title>
+	<head>
 	<meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	 
@@ -13,10 +12,11 @@
 	<script type="text/javascript" src="../../script/jquery-2.2.4.min.js"></script>
 	<script type="text/javascript" src="../../script/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../../script/iox.js"></script>
+	<script type="text/javascript" src="../../script/signin.js"></script>
 </head>
 
 <body>
-
+	
 	<div class="container">
 
 		<!-- Static navbar -->
@@ -53,16 +53,38 @@
 			
         </div><!--/.container-fluid -->
       </nav>
-
+		
 		<!-- Main component for a primary marketing message or call to action -->		
 		<div id="main-container" class="container-fluid"> <!--text-center -->
 			
 			<div id="module-name">
-				<h4>HELLO WORLD</h4>
+				<h4>Auth</h4>
 			</div>
 		
 			<div id="module-content">
-				Example module for the IoX runtime engine.
+				<div class="login-container">
+					<form id="signinForm" class="form-login" method="post" accept-charset="UTF-8">
+						<div class="form-group">
+							<div>
+								<input type="text" placeholder="Username" id="signinUsername" name="signinUsername" value="" class="form-control input-md" oninput="rescheduleValidate(500)" onblur="validate()">
+							</div>
+							<div class="help-login help-signinUsername"></div>
+						</div>
+						<div class="form-group">
+							<div>
+								<input type="password" placeholder="Password" id="signinPassword" name="signinPassword" value="" class="form-control input-md" oninput="rescheduleValidate(500)" onblur="validate()">
+							</div>
+							<div class="help-login help-signinPassword"></div>
+						</div>
+						<!-- <div class="checkbox-remember-me" for="user_remember_me">
+							<label><input type="checkbox" name="remember-me" id="remember-me" value="1"> Remember Me</label>
+						 </div> -->
+						<a role="button" id="sign-in" name="signinBtn" class="btn btn-primary btn-block" onclick="signin()">Sign In</a> 
+					</form>
+					
+					<label> or click <a id="register" name="registerBtn" href="signup.html">here</a> to register on IoX</label>
+				
+				</div>
 			</div>
 			
 			<div class="jumbotron">
@@ -71,6 +93,6 @@
 		
 		</div> <!-- main-container -->
 	</div> <!-- /container -->
-	
+
 </body>
 </html>

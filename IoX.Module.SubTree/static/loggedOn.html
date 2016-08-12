@@ -1,67 +1,25 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
-   <title>IoX Module Manager</title>
+	 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-social.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-  	
+	
 	<script type="text/javascript" src="script/jquery-2.2.4.min.js"></script>
-  	<script type="text/javascript" src="script/bootstrap.min.js"></script>
-  	<script type="text/javascript" src="script/iox.js"></script>
-   <script type="text/javascript">
-		function updateModInfo(modInfo, m) {
-			if (!m.Loaded) {
-				var link = $('<a class="btn btn-link">Load</a>');
-				link.click(function () { loadModule(modInfo, m); });
-				modInfo.append(link);
-			} else if (m.Browsable) {
-				modInfo.html('<a class="btn btn-link" href="' + m.Url +'">View</a>');
-			} else {
-				modInfo.html('<i>Loaded</i>');
-			}
-		}
-
-		function loadModule(modInfo, m) {
-			modInfo.html('<i>Loading...</i>');
-		   iox.post_json("load-module", m.Id, function (data, status) {
-		   if (status == "success")
-		      updateModInfo(modInfo, data);
-		   else
-		      modInfo.html('<i>Error (TODO)</i>');
-		   });
-		}
-
-		$(document).ready(function () {
-			var content = $('#content');
-		   iox.available_modules(
-				function () { content.html(""); },
-				function (m) {
-					var modElement = $(
-						'<div class="panel panel-info">' +
-						'<div class="panel-heading"><h3 class="panel-title">' + m.Name + '</h3></div>' +
-						'<div class="panel-body">' +
-						'<p>' + m.Description + '</p>' +
-						'<p><div class="module-dyn-info"></div></p>' +
-						'</div>' +
-						'</div>');
-					updateModInfo(modElement.find(".module-dyn-info"), m);
-					content.append(modElement);
-				}
-			);
-		});
-   </script>
+	<script type="text/javascript" src="script/bootstrap.min.js"></script>
+	<script type="text/javascript" src="script/iox.js"></script>
+	<!-- <script type="text/javascript" src="script/logout.js"></script> -->
 </head>
 
-<body> 
+<body>
 	
 	<div class="container">
 
-	<!-- Static navbar -->
+		<!-- Static navbar -->
       <nav class="navbar navbar-default">
         <div class="container-fluid">
          <div class="navbar-header">
@@ -87,28 +45,35 @@
 				</li>
 			  </ul>
 			  <!-- <ul class="nav pull-right"> -->
-			  <ul class="nav navbar-nav navbar-right">
-				<!-- <li><a href="/signup.html">Sign Up</a></li>
-				<li><a href="/oauth.html">Sign In</a></li> -->
-			  </ul>
+			  <ul id="rightNavbar" class="nav navbar-nav navbar-right">	
+					<li><a><i class="icon-white"></i>Logged in as .....</a></li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Settings<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">					
+							<li><a href="#">Profile</a></li>
+							<li><a href="#">Account Settings</a></li>
+							<li><a href="#">Support</a></li>
+							<li><a href="#">Log Out</a></li> <!--TODO-->
+							<!-- <li><a role="button" id="log-out" name="logoutBtn" onclick="logout()">Log Out</a></li> -->
+							<!-- <li><a role="button" id="log-out" name="logoutBtn" href="/modules/lauth/logout">Log Out</a></li> -->
+						</ul>
+					</li>		
+				</ul>
 			</div><!--/.nav-collapse -->
 			
         </div><!--/.container-fluid -->
       </nav>
 		
-		<!-- Main component for a primary marketing message or call to action -->		
+	
+      <!-- Main component for a primary marketing message or call to action -->		
 		<div id="main-container" class="container-fluid"> <!--text-center -->
 			
 			<div id="module-name">
-				<h4>MANAGE MODULES</h4>
+				<h4>IoX</h4>
 			</div>
 		
 			<div id="module-content">
-				<div id="content">
-					<div class="text-center">
-						<img src="img/throbber.gif" width="64" />
-					</div>
-				</div>
+				Logged on successful!
 			</div>
 			
 			<div class="jumbotron">
@@ -116,8 +81,7 @@
 			</div>
 		
 		</div> <!-- main-container -->
-
-    </div> <!-- /container -->
+	</div> <!-- /container -->
 	
 </body>
 </html>

@@ -1,0 +1,25 @@
+{
+  "db330f2f-662e-4714-9fb5-8f56e7a7af2c": {
+    "Account": {
+      "Case": "Local"
+    },
+    "Role": {
+      "Case": "Admin"
+    },
+    "Local": {
+      "Email@": "admin@localadmin.it",
+      "Name": "Admin",
+      "Surname": "Admin",
+      "Email": "admin@localadmin.it",
+      "Username": "admin",
+      "Password": ""
+    },
+    "Provider": {
+      "AccessToken@": "",
+      "ID": "",
+      "Name": "",
+      "ProviderName": "",
+      "AccessToken": ""
+    }
+  }
+}

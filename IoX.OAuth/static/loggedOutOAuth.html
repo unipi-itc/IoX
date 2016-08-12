@@ -1,7 +1,6 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-	<title>Hello World Module</title>
 	<meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	 
@@ -16,7 +15,7 @@
 </head>
 
 <body>
-
+	
 	<div class="container">
 
 		<!-- Static navbar -->
@@ -37,36 +36,37 @@
 			  <ul class="nav navbar-nav">
 				<li class="active"><a href="/index.html"><i class="icon-home icon-white"></i> Home</a></li>
 				<li class="dropdown">
-					<a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown" onclick="iox.update_modules_list('../../')">Modules <span class="caret"></span></a>
+					<a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown" onclick="iox.update_modules_list('')">Modules <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu" id="ModulesDropDown">
 						<li class="divider"></li>
-						<li><a href="../../modules.html">Manage modules</a></li>
+						<li><a href="/modules.html">Manage modules</a></li>
 					</ul>
 				</li>
 			  </ul>
 			  <!-- <ul class="nav pull-right"> -->
 			  <ul class="nav navbar-nav navbar-right">
-				<!-- <li><a href="/signup.html">Sign Up</a></li>
+<!-- 				<li><a href="/signup.html">Sign Up</a></li>
 				<li><a href="/oauth.html">Sign In</a></li> -->
 			  </ul>
 			</div><!--/.nav-collapse -->
 			
         </div><!--/.container-fluid -->
       </nav>
-
-		<!-- Main component for a primary marketing message or call to action -->		
+		
+	
+      <!-- Main component for a primary marketing message or call to action -->		
 		<div id="main-container" class="container-fluid"> <!--text-center -->
 			
 			<div id="module-name">
-				<h4>HELLO WORLD</h4>
+				<h4>OAuth</h4>
 			</div>
 		
 			<div id="module-content">
-				Example module for the IoX runtime engine.
+				Logged out successful!
 			</div>
 			
 			<div class="jumbotron">
-				<p><a class="btn btn-lg btn-primary" role="button" href="https://github.com/unipi-itc/IoX">Learn more about IoX</a></p>
+				<p><a class="btn btn-lg btn-primary" role="button">Learn more about IoX</a></p>
 			</div>
 		
 		</div> <!-- main-container -->
