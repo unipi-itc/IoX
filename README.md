@@ -12,30 +12,34 @@ We implemented a fingerprint-based door lock system with two nodes participating
 
 ## Status
 
-This is the very first version of the runtime. We will soon post instructions to build and run the hello world module example.
-There are several missing features that we are adding (authentication, filtering, utilities, etc.)
+The project is quickly maturing, now the module system is almost finished and we are working on the security
+(authentication and authorization) part. Now we use React to help defining module pages without implying extra
+overhead for the IoT device (composition is performed on the client browser).
 
 Join us in defining an open source lightweight runtime for the future of IoT.
 
 ## Build and run
 
-If you use Visual Studio or Xamarin Studio or any other F# tooling, simply build the main solution and the Hello World module example.
-In case you are not using Visual Studio you have to manually copy the static folder in IoX.ModuleExamples.HelloWorld in the Modules 
-folder of the final output.
+To build IoX you have to build the server, the runtime (`IoX.Modules`) and the two modules part of the distribution
+(`IoX.Module.Subtree` and `IoX.ModuleExamples.HelloWorld`). In order to build you have to run:
 
-You should get in bin/$(Configuration)/ all the files including IoX.exe which is the program.
+    nuget restore
+    msbuild IoX.sln
 
-When you start it simply browse to http://localhost:8080, access the menu and select "manage modules".
-Load the hello world module and then access with your browser
+You can use *xbuild* on Mono.
 
-    http://localhost:8080/hw/helo
-    http://localhost:8080/hw/chat?msg=YourName
-    ...
-    http://localhost:8080/hw/chat?msg=As+many+as+you+want
-    http://localhost:8080/hw/bye
+Note that you can also build from within Visual Studio but we are using wildcards inside `.fsproj` files that are 
+not supported by the F# project system yet. In this case you should copy the static folder of the *SubTree* and
+*HelloWorld* modules in the output directory.
 
-Try to access helo URL while chatting, it will be ignored.
+Once everything is built you can copy the output of the *SubTree* project in a folder named `root`, and then in the
+`modules/hw` folder the output of the *HelloWorld* project.
+
+You can then run `IoX.Server.exe` and point your browser to http://localhost:8080/   
 
 We hope you like it and will contribute!
 
-
+### Build Status
+|         |Linux|Windows|
+|--------:|:---:|:-----:|
+|**Status**|[![Build Status](https://travis-ci.org/unipi-itc/IoX.svg?branch=master)](https://travis-ci.org/unipi-itc/IoX)|[![Build status](https://ci.appveyor.com/api/projects/status/b33my40yqrru87ma?branch=master&svg=true)](https://ci.appveyor.com/project/ranma42/iox)|
