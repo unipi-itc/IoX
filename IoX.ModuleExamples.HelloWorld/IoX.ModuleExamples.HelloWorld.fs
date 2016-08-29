@@ -21,11 +21,11 @@ type HelloWorldModule(data: IModuleData<unit>) as this =
     let bye = this.RegisterReplyEvent("bye")
 
     +(
-      (!!hello |-> fun arg -> arg.Result <- OK "Hello dear")
+      (!!hello |-> fun (arg:MsgRequestEventArgs<_>) -> arg.Result <- OK "Hello dear")
       -
-      +(!!chat |-> fun arg -> arg.Result <- OK (sprintf "I disagree on %s" arg.Message) ) / [| bye |]
+      +(!!chat |-> fun (arg:MsgRequestEventArgs<_>) -> arg.Result <- OK (sprintf "I disagree on %s" arg.Message) ) / [| bye |]
       -
-      (!!bye |-> fun arg -> arg.Result <- OK "Bye bye!")
+      (!!bye |-> fun (arg:MsgRequestEventArgs<_>) -> arg.Result <- OK "Bye bye!")
     )
     |> this.ActivateNet
     |> ignore
