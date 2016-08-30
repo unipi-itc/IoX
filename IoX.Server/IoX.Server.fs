@@ -55,8 +55,11 @@ let loadRootModule path url =
   let data = Activator.CreateInstance(dataType, path, url, defaultCfg)
   let m = Activator.CreateInstance(mType, data) :?> Module
   let browse ctx =
-    let fileName = sprintf "static/%s" (ctx.userState.["relPath"] :?> _)
-    Files.browseFile path fileName ctx
+    match ctx.userState.["relPath"] with
+    | :? string as s when m.Browsable ->
+      let fileName = sprintf "static/%s" s
+      Files.browseFile path fileName ctx
+    | _ -> fail
   fun ctx ->
     let relPath = ctx.request.url.AbsolutePath.Substring(1)
     (m.WebPart <|> browse) { ctx with userState = ctx.userState.Add("relPath", relPath) }

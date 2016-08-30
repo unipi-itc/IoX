@@ -2,20 +2,20 @@ var Suave;
 (function (Suave) {
     var EvReact;
     (function (EvReact) {
-        function remoteCallback(url, callback) {
+        function remoteCallback(url, callback, rawText) {
             return function (data) {
                 var request = new XMLHttpRequest();
                 request.open('POST', url, true);
                 request.setRequestHeader('Content-Type', 'application/json');
                 request.onload = function () {
-                    if (request.status >= 200 && request.status < 400)
-                        callback(JSON.parse(request.responseText));
-                    else
+                    if (request.status < 200 || request.status >= 400)
                         console.error(url, request.status, request.statusText);
+                    else if (callback) {
+                        var arg = rawText ? request.responseText : JSON.parse(request.responseText);
+                        callback(arg);
+                    }
                 };
-                request.onerror = function () {
-                  return console.error(url, request.status, request.statusText);
-                };
+                request.onerror = function () { return console.error(url, request.status, request.statusText); };
                 request.send(JSON.stringify(data));
             };
         }
