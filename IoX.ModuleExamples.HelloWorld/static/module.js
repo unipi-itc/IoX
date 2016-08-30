@@ -47,5 +47,5 @@
     }
   });
 
-  ReactDOM.render(<Module baseUrl={baseUrl}/>, modElement);
+  ReactDOM.render(<Module />, modElement);
 })

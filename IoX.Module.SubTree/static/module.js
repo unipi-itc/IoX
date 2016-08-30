@@ -54,7 +54,7 @@
     },
 
     render: function() {
-      return <div className="panel-body" ref="container" data-baseUrl={this.props.url}/>;
+      return <div className="panel-body" ref="container" />;
     }
   });
 
@@ -136,7 +136,7 @@
     }
   });
 
-  ReactDOM.render(<Module baseUrl={baseUrl}/>, modElement);
+  ReactDOM.render(<Module />, modElement);
   var menu = document.getElementById('modulesMenu');
   if (menu)
     ReactDOM.render(<ModulesMenu />, menu);
