@@ -5,7 +5,7 @@
         <version>0.4.0</version>
         <title>IoX.Modules</title>
         <authors>Antonio Cisternino</authors>
-        <projectUrl>https://unipi-itc.github.io/IoX.Modules</projectUrl>
+        <projectUrl>https://github.com/unipi-itc/IoX</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>
           First release of the SDK for developing modules for the IoX (Internet of everything interconnecting) runtime
