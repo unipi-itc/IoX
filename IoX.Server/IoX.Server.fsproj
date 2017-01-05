@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>IoX.Server</RootNamespace>
     <AssemblyName>IoX.Server</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <Name>IoX.Server</Name>
   </PropertyGroup>
@@ -72,11 +72,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Suave">
-      <HintPath>..\packages\Suave.1.1.3\lib\net40\Suave.dll</HintPath>
+      <HintPath>..\packages\Suave.2.0.0\lib\net40\Suave.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Suave.EvReact">
-      <HintPath>..\packages\Suave.EvReact.0.5.1\lib\net45\Suave.EvReact.dll</HintPath>
+      <HintPath>..\packages\Suave.EvReact.0.6.0\lib\net45\Suave.EvReact.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
