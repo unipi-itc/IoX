@@ -68,7 +68,7 @@ let run path =
   let conf = Utils.ConfigurationFile("iox.conf", defaultIoXConfiguration)
   let config = {
     defaultConfig with
-      bindings = [ HttpBinding.mkSimple HTTP conf.Data.BindingAddress conf.Data.BindingPort ]
+      bindings = [ HttpBinding.createSimple HTTP conf.Data.BindingAddress conf.Data.BindingPort ]
   }
   let rootPath = System.IO.Path.Combine(path, conf.Data.RootPath)
   let rootUri = SuaveConfig.firstBindingUri config "" ""
